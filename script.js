@@ -3,7 +3,7 @@ function consulta() {
     cidade = document.getElementById('cidade');       
     $.ajax({
         type: 'GET',
-        url: "http://api.openweathermap.org/data/2.5/weather?q="+ cidade.value + "&appid=KEY",
+        url: "http://api.openweathermap.org/data/2.5/weather?q="+ cidade.value + "&appid=",
         success: function(resposta) {  
             $("#tempAtual").html(resposta.main.temp - 273.15),  
             $("#tempMax").html(resposta.main.temp_max - 273.15),
@@ -16,8 +16,13 @@ function consulta() {
             long = resposta.coord.lon
             $("#latitude").html(resposta.coord.lat),
             lat = resposta.coord.lat
-            initMap();
-             
+
+            var icon = resposta.weather[0].icon;
+            var iconurl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
+            $('#cond').attr("src", iconurl);
+            
+            
+            //initMap();   
         }
     });
 }  
